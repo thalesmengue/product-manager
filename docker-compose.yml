@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  proxy:
+    build:
+      dockerfile: ./backend/docker/nginx.Dockerfile
+    volumes:
+      - ./backend/public:/src/public
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+    networks:
+      - manager-network
+
+  php:
+    depends_on:
+      - mysql
+    build:
+      dockerfile: ./backend/docker/php.Dockerfile
+    expose:
+      - 9004
+    volumes:
+      - ./backend/:/src
+    environment:
+      - APP_ENV=local
+    command: [ "./start.sh" ]
+    networks:
+      - manager-network
+
+  frontend:
+    build:
+      dockerfile: ./frontend/Dockerfile
+    container_name: product-manager-react-app
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:5173"
+    depends_on:
+      - proxy
+    networks:
+      - manager-network
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 3s
+      retries: 10
+    volumes:
+      - db-mysql:/var/lib/mysql
+    networks:
+      - manager-network
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: product-manager
+
+networks:
+  manager-network:
+    name: manager-network
+
+volumes:
+  db-mysql:
