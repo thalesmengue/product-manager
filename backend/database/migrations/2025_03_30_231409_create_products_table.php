@@ -1,5 +1,7 @@
 <?php
 
+use Database\Seeders\ProductSeeder;
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +22,8 @@ return new class extends Migration {
             $table->boolean('is_active');
             $table->timestamps();
         });
+
+        $this->seedProducts();
     }
 
     /**
@@ -28,5 +32,13 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('products');
+    }
+
+    private function seedProducts(): void
+    {
+        $entityManager = app(EntityManagerInterface::class);
+
+        $seeder = new ProductSeeder($entityManager);
+        $seeder->run();
     }
 };
