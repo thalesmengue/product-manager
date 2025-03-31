@@ -4,13 +4,14 @@ namespace App\Repositories;
 
 use App\Entities\Product;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    private $entityManager;
-    private $repository;
+    private EntityManagerInterface $entityManager;
+    private EntityRepository $repository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -51,5 +52,16 @@ class ProductRepository implements ProductRepositoryInterface
                 'query' => request()->query()
             ]
         );
+    }
+
+    public function findById(int $id): ?Product
+    {
+        return $this->repository->find($id);
+    }
+
+    public function save(Product $product): void
+    {
+        $this->entityManager->persist($product);
+        $this->entityManager->flush();
     }
 }
