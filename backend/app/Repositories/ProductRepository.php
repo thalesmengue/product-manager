@@ -28,7 +28,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         if ($search) {
             $queryBuilder->where('p.name LIKE :search')
-                ->setParameter('searchTerm', '%' . $search . '%');
+                ->setParameter('search', '%' . $search . '%');
         }
 
         $countQueryBuilder = clone $queryBuilder;
