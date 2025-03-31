@@ -21,7 +21,7 @@ class ProductService
         $product->setDescription($data['description'] ?? null);
         $product->setSku($data['sku']);
         $product->setPrice($data['price']);
-        $product->setStock($data['stock']);
+        $product->setCategory($data['category']);
         $product->setIsActive($data['is_active'] ?? true);
         $product->setCreatedAt(now());
 

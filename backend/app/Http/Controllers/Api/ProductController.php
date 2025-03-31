@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-
-
     public function index(IndexRequest $request, ProductRepository $repository): AnonymousResourceCollection
     {
         $products = $repository->all(

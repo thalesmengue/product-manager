@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'description' => $this->resource->getDescription(),
             'sku' => $this->resource->getSku(),
             'price' => $this->resource->getPrice(),
-            'stock' => $this->resource->getStock(),
+            'category' => $this->resource->getCategory(),
             'is_active' => $this->resource->getIsActive(),
             'created_at' => $this->resource->getCreatedAt()->format('Y-m-d H:i:s'),
             'updated_at' => $this->resource->getUpdatedAt() ? $this->resource->getUpdatedAt()->format('Y-m-d H:i:s') : null,

@@ -26,8 +26,8 @@ class Product
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $price;
 
-    #[ORM\Column(type: 'integer')]
-    private $stock;
+    #[ORM\Column(type: 'text')]
+    private $category;
 
     #[ORM\Column(type: 'boolean')]
     private $is_active;
@@ -87,14 +87,14 @@ class Product
         return $this;
     }
 
-    public function getStock(): int
+    public function getCategory(): string
     {
-        return $this->stock;
+        return $this->category;
     }
 
-    public function setStock(int $stock): self
+    public function setCategory(string $category): self
     {
-        $this->stock = $stock;
+        $this->category = $category;
         return $this;
     }
 

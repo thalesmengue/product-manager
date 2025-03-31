@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0'],
             'description' => ['nullable', 'string'],
             'sku' => ['required', 'string', 'max:255', 'unique:products,sku'],
-            'stock' => ['required', 'integer', 'min:0'],
+            'category' => ['required', 'string'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }
