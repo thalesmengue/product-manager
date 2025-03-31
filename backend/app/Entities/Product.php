@@ -20,8 +20,17 @@ class Product
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private $sku;
+
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $price;
+
+    #[ORM\Column(type: 'integer')]
+    private $stock;
+
+    #[ORM\Column(type: 'boolean')]
+    private $is_active;
 
     #[ORM\Column(type: 'datetime')]
     private $created_at;
@@ -56,6 +65,17 @@ class Product
         return $this;
     }
 
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    public function setSku(string $sku): self
+    {
+        $this->sku = $sku;
+        return $this;
+    }
+
     public function getPrice(): float
     {
         return $this->price;
@@ -64,6 +84,28 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
+        return $this;
+    }
+
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
+        return $this;
+    }
+
+    public function getIsActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->is_active = $isActive;
         return $this;
     }
 
