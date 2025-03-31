@@ -51,7 +51,8 @@ class ProductSeeder extends Seeder
 
             $product->setPrice($faker->randomFloat(2, 5, 2000));
 
-            $product->setStock($faker->numberBetween(0, 1000));
+            $categories = ['Electronics', 'Clothing', 'Books', 'Home & Garden', 'Health & Beauty'];
+            $product->setCategory($faker->randomElement($categories));
 
             $product->setIsActive($faker->boolean(80));
 

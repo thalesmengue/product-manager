@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('sku')->unique();
             $table->decimal('price', 10);
-            $table->integer('stock');
+            $table->string('category');
             $table->boolean('is_active');
             $table->timestamps();
         });
