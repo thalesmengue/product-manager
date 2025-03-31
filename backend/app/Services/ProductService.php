@@ -14,9 +14,8 @@ class ProductService
         $this->repository = $repository;
     }
 
-    public function store(array $data): Product
+    private function setData(Product $product, array $data): Product
     {
-        $product = new Product();
         $product->setName($data['name']);
         $product->setDescription($data['description'] ?? null);
         $product->setSku($data['sku']);
@@ -24,6 +23,27 @@ class ProductService
         $product->setCategory($data['category']);
         $product->setIsActive($data['is_active'] ?? true);
         $product->setCreatedAt(now());
+        $product->setUpdatedAt(now());
+
+        return $product;
+    }
+
+    public function store(array $data): Product
+    {
+        $product = new Product();
+
+        $product = $this->setData($product, $data);
+
+        $this->repository->save($product);
+
+        return $product;
+    }
+
+    public function update(array $data, int $id): Product
+    {
+        $product = $this->repository->findById($id);
+
+        $product = $this->setData($product, $data);
 
         $this->repository->save($product);
 

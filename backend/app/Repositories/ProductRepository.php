@@ -64,4 +64,10 @@ class ProductRepository implements ProductRepositoryInterface
         $this->entityManager->persist($product);
         $this->entityManager->flush();
     }
+
+    public function delete(Product $product): void
+    {
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
+    }
 }
